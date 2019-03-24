@@ -170,7 +170,7 @@ class Gdbr():
         plt.show()
 
 
-class RF():
+class RandomForest():
     def __init__(self, X, y):
         self.X = X
         self.y = y
@@ -236,7 +236,7 @@ class RF():
 
 
 
-class SVM():
+class SupportVectorMachine():
     def __init__(self, X, y):
         self.X = X
         self.y = y
