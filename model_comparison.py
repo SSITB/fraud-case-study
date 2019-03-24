@@ -1,11 +1,8 @@
 import pandas as pd
 from class_features import Features
-from class_models import Logit, Gdbr, RF, SVM
+from class_models import Logit, Gdbr, RandomForest, SupportVectorMachine
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.preprocessing import StandardScaler
-from sklearn.svm import SVC
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -33,8 +30,8 @@ def model_score(model):
 
 def comparison():
         score_gdbr, cm_gdbr = model_score(Gdbr)
-        score_rf, cm_rf = model_score(RF)
-        score_svm, cm_svm = model_score(SVM)
+        score_rf, cm_rf = model_score(RandomForest)
+        score_svm, cm_svm = model_score(SupportVectorMachine)
         score_logit, cm_logit = model_score(Logit)
         
         scores = [score_gdbr, score_rf, score_svm, score_logit]
