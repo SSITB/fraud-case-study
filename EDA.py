@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from class_features import Features
-from class_models import Logit, Gdbr, NaiveBayes, RF, SVM
+from class_models import Logit, Gdbr, NaiveBayes, RandomForest, SupportVectorMachine
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -74,11 +74,11 @@ gdbr.feature_importances(X_train)
 gdbr.partial_dependence_plots(X_train)
 
 #Random Forest confusion matrix
-rf, y_test_predicted_rf, score_rf, cm_rf = model_score(RF)
+rf, y_test_predicted_rf, score_rf, cm_rf = model_score(RandomForest)
 rf.confusion_matrix_plot(cm_rf, cmap=plt.cm.Greens)
 
 #SVM confusion matrix
-svm, y_test_predicted_svm, score_svm, cm_svm = model_score(SVM)
+svm, y_test_predicted_svm, score_svm, cm_svm = model_score(SupportVectorMachine)
 svm.confusion_matrix_plot(cm_svm, cmap=plt.cm.Greens)
 
 
@@ -142,8 +142,8 @@ def roc_comparison():
 def score_comparison():
         logit, y_test_predicted_logit, score_logit, cm_logit = model_score(Logit)
         gdbr, y_test_predicted_gdbr, score_gdbr, cm_gdbr = model_score(Gdbr)
-        rf, y_test_predicted_rf, score_rf, cm_rf = model_score(RF)
-        svm, y_test_predicted_svm, score_svm, cm_svm = model_score(SVM)
+        rf, y_test_predicted_rf, score_rf, cm_rf = model_score(RandomForest)
+        svm, y_test_predicted_svm, score_svm, cm_svm = model_score(SupportVectorMachine)
 
         scores = [score_gdbr, score_rf, score_svm, score_logit]
         cms = [cm_gdbr, cm_rf, cm_svm, cm_logit]
