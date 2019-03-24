@@ -6,9 +6,11 @@ import sklearn.metrics as metrics
 from sklearn.metrics import confusion_matrix
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.ensemble.partial_dependence import plot_partial_dependence
-from bs4 import BeautifulSoup 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+from sklearn.preprocessing import StandardScaler
 
 
 
@@ -168,6 +170,148 @@ class Gdbr():
         plt.show()
 
 
+class RF():
+    def __init__(self, X, y):
+        self.X = X
+        self.y = y
+    
+    def fit(self):
+        self.model = RandomForestClassifier(n_estimators=1000,
+                            n_jobs=-1)
+        self.model.fit(self.X, self.y)
+        return self
+    
+    def predict(self, X):
+        y_predicted = self.model.predict(X)
+        return y_predicted
+    
+    def predict_proba(self, X):
+        y_proba = self.model.predict_proba(X)
+        return y_proba
+    
+    def score(self, X, y):
+        score = self.model.score(X, y)
+        return score
+    
+    def confusion_matrix_plot(self, y, y_predicted,cmap):
+        cm = confusion_matrix(y, y_predicted)
+        plt.clf()
+        plt.imshow(cm, cmap, interpolation='nearest')
+        classNames = ['Not Fraud','Fraud']
+        plt.title('Confusion Matrix')
+        plt.colorbar()
+        plt.ylabel('True label')
+        plt.xlabel('Predicted label')
+        tick_marks = np.arange(len(classNames))
+        plt.xticks(tick_marks, classNames, rotation=45)
+        plt.yticks(tick_marks, classNames)
+        thresh = cm.max() / 2.
+        s = [['TN','FP'], ['FN', 'TP']]
+        for i in range(2):
+            for j in range(2):
+                plt.text(j,i, str(s[i][j])+"\n"+str(cm[i][j]),
+                horizontalalignment="center",
+                color="white" if cm[i, j] > thresh else "black")
+        plt.show()
+        
+    def confusion_matrix(self, y, y_predicted):
+        return confusion_matrix(y, y_predicted).ravel()
+        
+    def plot_roc(self, X, y):
+        y_predicted_proba = self.model.predict_proba(X)
+        preds = y_predicted_proba[:,1]
+        fpr, tpr, threshold = metrics.roc_curve(y, preds)
+        roc_auc = metrics.auc(fpr, tpr)
+        
+        # method I: plt
+        plt.title('Receiver Operating Characteristic')
+        plt.plot(fpr, tpr, 'b', label = 'AUC = %0.2f' % roc_auc)
+        plt.legend(loc = 'lower right')
+        plt.plot([0, 1], [0, 1],'r--')
+        plt.xlim([0, 1])
+        plt.ylim([0, 1])
+        plt.ylabel('True Positive Rate')
+        plt.xlabel('False Positive Rate')
+        plt.show()
+
+
+
+class SVM():
+    def __init__(self, X, y):
+        self.X = X
+        self.y = y
+    
+    def scaling(self, X):
+        cont_vars=['body_length', 'name_length', 'sale_duration', 'user_age',
+        'org_facebook','org_twitter', 'avg_ticket_cost','tot_ticket_quant']
+        X[cont_vars]=StandardScaler().fit_transform(X[cont_vars])
+        return X
+ 
+    def fit(self):
+        self.model = SVC(gamma='scale',probability=True)
+        X = self.scaling(self.X)
+        self.model.fit(X, self.y)
+        return self
+    
+    def predict(self, X):
+        X = self.scaling(X)
+        y_predicted = self.model.predict(X)
+        return y_predicted
+    
+    def predict_proba(self, X):
+        X = self.scaling(X)
+        y_proba = self.model.predict_proba(X)
+        return y_proba
+    
+    def score(self, X, y):
+        X = self.scaling(X)
+        score = self.model.score(X, y)
+        return score
+    
+    def confusion_matrix_plot(self, y, y_predicted,cmap):
+        cm = confusion_matrix(y, y_predicted)
+        plt.clf()
+        plt.imshow(cm, cmap, interpolation='nearest')
+        classNames = ['Not Fraud','Fraud']
+        plt.title('Confusion Matrix')
+        plt.colorbar()
+        plt.ylabel('True label')
+        plt.xlabel('Predicted label')
+        tick_marks = np.arange(len(classNames))
+        plt.xticks(tick_marks, classNames, rotation=45)
+        plt.yticks(tick_marks, classNames)
+        thresh = cm.max() / 2.
+        s = [['TN','FP'], ['FN', 'TP']]
+        for i in range(2):
+            for j in range(2):
+                plt.text(j,i, str(s[i][j])+"\n"+str(cm[i][j]),
+                horizontalalignment="center",
+                color="white" if cm[i, j] > thresh else "black")
+        plt.show()
+        
+    def confusion_matrix(self, y, y_predicted):
+        return confusion_matrix(y, y_predicted).ravel()
+            
+    def plot_roc(self, X, y):
+        X = self.scaling(X)
+        y_predicted_proba = self.model.predict_proba(X)
+        preds = y_predicted_proba[:,1]
+        fpr, tpr, threshold = metrics.roc_curve(y, preds)
+        roc_auc = metrics.auc(fpr, tpr)
+        
+        # method I: plt
+        plt.title('Receiver Operating Characteristic')
+        plt.plot(fpr, tpr, 'b', label = 'AUC = %0.2f' % roc_auc)
+        plt.legend(loc = 'lower right')
+        plt.plot([0, 1], [0, 1],'r--')
+        plt.xlim([0, 1])
+        plt.ylim([0, 1])
+        plt.ylabel('True Positive Rate')
+        plt.xlabel('False Positive Rate')
+        plt.show()
+
+
+
 class NaiveBayes():
     def __init__(self,X,y):
         self.X = X
@@ -219,8 +363,6 @@ class NaiveBayes():
         plt.ylabel('True Positive Rate')
         plt.xlabel('False Positive Rate')
         plt.show()
-
-    
 
     
 
