@@ -26,17 +26,8 @@ class EventAPIClient:
         """Save a data row to the database."""
         collection = self.db['Events']
 
-        # with open('data.json', 'w') as outfile:
-        #     json.dump(row, outfile)
-        # outfile.close()
-        # # print("ROWWWWWWW:"+str(type(row)))
-        #
-        # testdf = pd.read_json('data.json')
-        # print("DUMP IS GOOD"+str(type(testdf)))
-        #
-        # #
         collection.insert_one(row)
-        print("Received data:\n" + repr(row) + "\n")  # replace this with your code
+        print("Received data:\n" + repr(row) + "\n")
 
 
     def get_data(self):
@@ -65,8 +56,6 @@ class EventAPIClient:
 
 def main():
     """Collect events every 30 seconds."""
-
-    # mongo_client=
 
     client = EventAPIClient(db=MongoClient()['Fraud_Detection'])
     client.collect()
