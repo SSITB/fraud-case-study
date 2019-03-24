@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from class_features import Features
-from class_models import Logit, Gdbr, NaiveBayes
+from class_models import Logit, Gdbr, NaiveBayes, RF, SVM
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -46,83 +46,41 @@ correlation_matrix=data.corr()
 #Train, test split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=42)   
 
-## =============================================================================
-## Logistic regression
-## =============================================================================
 
-def logit_score():
+def model_score(model):
     
-    logit = Logit(X_train,y_train.values.ravel()).fit()
-    y_test_predicted = logit.predict(X_test)
-    score = logit.score(X_test,y_test) #0.95
-    cm = confusion_matrix(y_test, y_test_predicted)
-    return logit, y_test_predicted, score, cm
+    #The function returns:
+    #1) the fitted model
+    #2) predicted labels of test dataset
+    #3) accuracy score
+    #4) confusion matrix
 
-logit, y_test_predicted_logit, score_logit, cm_logit = logit_score()
+    model = model(X_train,y_train.values.ravel()).fit()
+    y_test_predicted = model.predict(X_test)
+    score = model.score(X_test,y_test) #0.95
+    cm = confusion_matrix(y_test, y_test_predicted)
+    return model, y_test_predicted, score, cm
+
+#Logit confusion matrix and model summary
+logit, y_test_predicted_logit, score_logit, cm_logit = model_score(Logit)
 logit.confusion_matrix_plot(y_test, y_test_predicted_logit, cmap = plt.cm.Greens)
 logit.model_summary()
-logit.plot_roc(X_test, y_test)
 
-# =============================================================================
-# Gradient Boosting Classifier
-# =============================================================================
-
-def gdbr_score():
-    
-    gdbr = Gdbr(X_train,y_train.values.ravel()).fit()
-    y_test_predicted = gdbr.predict(X_test)
-    score = gdbr.score(X_test,y_test) #0.98
-    cm = confusion_matrix(y_test, y_test_predicted)
-    return gdbr, y_test_predicted, score, cm
-
-gdbr, y_test_predicted_gdbr, score_gdbr, cm_gdbr = gdbr_score()
+#Gradient Boosting Classifier confusion matrix, feature importances and 
+#partial dependence plots
+gdbr, y_test_predicted_gdbr, score_gdbr, cm_gdbr = model_score(Gdbr)
 gdbr.confusion_matrix_plot(y_test, y_test_predicted_gdbr, cmap = plt.cm.Greens)
 gdbr.feature_importances(X_train)
 gdbr.partial_dependence_plots(X_train)
-gdbr.plot_roc(X_test, y_test)
 
-# =============================================================================
-# Random Forest
-# =============================================================================
+#Random Forest confusion matrix
+rf, y_test_predicted_rf, score_rf, cm_rf = model_score(RF)
+rf.confusion_matrix_plot(cm_rf, cmap=plt.cm.Greens)
 
-def rf_score():
-    
-    rf = RandomForestClassifier(n_estimators=1000,
-                            n_jobs=-1).fit(X_train, y_train)
-    y_test_predicted = rf.predict(X_test)
-    score = rf.score(X_test,y_test) #0.98
-    cm = confusion_matrix(y_test, y_test_predicted)
-    return rf, y_test_predicted, score, cm
+#SVM confusion matrix
+svm, y_test_predicted_svm, score_svm, cm_svm = model_score(SVM)
+svm.confusion_matrix_plot(cm_svm, cmap=plt.cm.Greens)
 
-rf, y_test_predicted_rf, score_rf, cm_rf = rf_score()
-confusion_matrix_plot(cm_rf, cmap=plt.cm.Greens)
-
-# =============================================================================
-# SVM
-# =============================================================================
-
-def scaling(cont_vars, X_train, X_test):
-    X_train_copy = X_train.copy()
-    X_test_copy = X_test.copy()
-    X_train_copy[cont_vars]=StandardScaler().fit_transform(X_train_copy[cont_vars])
-    X_test_copy[cont_vars]=StandardScaler().fit_transform(X_test_copy[cont_vars])
-    return X_train_copy, X_test_copy
-    
-#Standardizing/Rescaling continuous variables
-cont_vars=['body_length', 'name_length', 'sale_duration', 'user_age',
-        'org_facebook','org_twitter', 'avg_ticket_cost','tot_ticket_quant']
-X_train_svm, X_test_svm = scaling(cont_vars, X_train, X_test)
-
-def svm_score():
-    
-    svm = SVC(gamma='scale',probability=True).fit(X_train_svm,y_train)
-    y_test_predicted = svm.predict(X_test_svm)
-    score = svm.score(X_test_svm,y_test) 
-    cm = confusion_matrix(y_test, y_test_predicted)
-    return svm, y_test_predicted, score, cm
-
-svm, y_test_predicted_svm, score_svm, cm_svm = svm_score()
-confusion_matrix_plot(cm_svm, cmap=plt.cm.Greens)
 
 # =============================================================================
 # ROC curve
@@ -182,10 +140,10 @@ def roc_comparison():
 
 #Results comparison
 def score_comparison():
-        logit, y_test_predicted_logit, score_logit, cm_logit = logit_score()
-        gdbr, y_test_predicted_gdbr, score_gdbr, cm_gdbr = gdbr_score()
-        rf, y_test_predicted_rf, score_rf, cm_rf = rf_score()
-        svm, y_test_predicted_svm, score_svm, cm_svm = svm_score()
+        logit, y_test_predicted_logit, score_logit, cm_logit = model_score(Logit)
+        gdbr, y_test_predicted_gdbr, score_gdbr, cm_gdbr = model_score(Gdbr)
+        rf, y_test_predicted_rf, score_rf, cm_rf = model_score(RF)
+        svm, y_test_predicted_svm, score_svm, cm_svm = model_score(SVM)
 
         scores = [score_gdbr, score_rf, score_svm, score_logit]
         cms = [cm_gdbr, cm_rf, cm_svm, cm_logit]
