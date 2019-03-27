@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template
+from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 import pickle
 from mongo import update_db, pull_values
