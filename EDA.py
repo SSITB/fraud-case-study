@@ -2,7 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from class_features import Features
 from class_models import Logit, Gdbr, NaiveBayes, RandomForest, SupportVectorMachine
-import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import statsmodels.api as sm
