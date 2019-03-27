@@ -27,7 +27,7 @@ def model_score(model):
     
     model = model(X_train,y_train.values.ravel()).fit()
     y_test_predicted = model.predict(X_test)
-    score = model.score(X_test,y_test) #0.95
+    score = model.score(X_test,y_test)
     cm = confusion_matrix(y_test, y_test_predicted)
     return score, cm
 
