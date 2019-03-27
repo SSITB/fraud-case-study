@@ -32,7 +32,8 @@ def parse_text(X):
 X_parsed = parse_text(df['org_desc'])
 X_parsed = np.asarray(X_parsed)
 
-X_train, X_test, y_train, y_test = train_test_split(df['org_name'], y, test_size=0.20, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(df['org_name'], y, 
+                                                    test_size=0.20, random_state=42)
 
 nb = NaiveBayes(X_train,y_train).fit()
 y_test_predicted = nb.predict_y(X_test)
