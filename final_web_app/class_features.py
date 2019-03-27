@@ -33,7 +33,7 @@ class Features:
                                            'avg_ticket_cost','tot_ticket_quant']
         self.X = self.replace_missing_val(self.X.loc[:,selected_vars_with_missing_vals])
         
-        #Dropping object id from the features
+        #Dropping object_id from the features
         self.X=self.X.drop('object_id',axis=1)
         
         return self.X
