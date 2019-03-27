@@ -2,6 +2,10 @@ from class_features import Features
 from pymongo import MongoClient
 import pandas as pd
 
+mongo_client=MongoClient()
+db = mongo_client['Fraud_Detection']
+collection = db['Events']
+
 
 def update_db(model):
     
@@ -35,6 +39,4 @@ def pull_values():
                 collection.count_documents({"prob":'High Risk'})
 
 
-mongo_client=MongoClient()
-db = mongo_client['Fraud_Detection']
-collection = db['Events']
+
