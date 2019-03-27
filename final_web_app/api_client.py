@@ -37,7 +37,7 @@ class EventAPIClient:
         #
         # #
         collection.insert_one(row)
-        print("Received data:\n" + repr(row) + "\n")  # replace this with your code
+        print("Received data:\n" + repr(row) + "\n")
 
 
     def get_data(self):
