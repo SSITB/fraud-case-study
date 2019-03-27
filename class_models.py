@@ -72,7 +72,6 @@ class Logit():
         fpr, tpr, threshold = metrics.roc_curve(y, preds)
         roc_auc = metrics.auc(fpr, tpr)
         
-        # method I: plt
         plt.title('Receiver Operating Characteristic')
         plt.plot(fpr, tpr, 'b', label = 'AUC = %0.2f' % roc_auc)
         plt.legend(loc = 'lower right')
@@ -158,7 +157,6 @@ class Gdbr():
         fpr, tpr, threshold = metrics.roc_curve(y, preds)
         roc_auc = metrics.auc(fpr, tpr)
         
-        # method I: plt
         plt.title('Receiver Operating Characteristic')
         plt.plot(fpr, tpr, 'b', label = 'AUC = %0.2f' % roc_auc)
         plt.legend(loc = 'lower right')
@@ -223,7 +221,6 @@ class RandomForest():
         fpr, tpr, threshold = metrics.roc_curve(y, preds)
         roc_auc = metrics.auc(fpr, tpr)
         
-        # method I: plt
         plt.title('Receiver Operating Characteristic')
         plt.plot(fpr, tpr, 'b', label = 'AUC = %0.2f' % roc_auc)
         plt.legend(loc = 'lower right')
@@ -299,7 +296,6 @@ class SupportVectorMachine():
         fpr, tpr, threshold = metrics.roc_curve(y, preds)
         roc_auc = metrics.auc(fpr, tpr)
         
-        # method I: plt
         plt.title('Receiver Operating Characteristic')
         plt.plot(fpr, tpr, 'b', label = 'AUC = %0.2f' % roc_auc)
         plt.legend(loc = 'lower right')
