@@ -1,4 +1,5 @@
 """Realtime Events API Client for DSI Fraud Detection Case Study"""
+
 import time
 import requests
 import pymongo
