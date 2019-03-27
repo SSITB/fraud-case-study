@@ -30,7 +30,7 @@ def update_db(model):
         collection.find_one_and_update({'object_id' :i['object_id']},
                                         {"$set": {'prob':i['prob']}})
 
-    return
+    return None
     
 def pull_values():
 
