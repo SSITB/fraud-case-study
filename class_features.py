@@ -38,11 +38,7 @@ class Features:
         #Dropping object id from the features
         self.X=self.X.drop('object_id',axis=1)
         
-        #Target variable = 1 if the event is fraudulent
-        df['fraud'] = df['acct_type'].str.contains('fraud')
-        self.y = pd.get_dummies(df['fraud'],drop_first=True)
-        
-        return self.X, self.y
+        return self.X
 
 
     def replace_missing_val(self, df):
