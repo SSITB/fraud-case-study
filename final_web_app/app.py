@@ -23,6 +23,7 @@ def score():
 
    return render_template("score.html", low=low, medium=medium, high=high)
 
+
 if __name__ == '__main__':
 
    app.run(host='0.0.0.0', port=8080, debug=True)
