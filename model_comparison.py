@@ -12,7 +12,11 @@ df=pd.read_json('data/data.json',convert_dates=['approx_payout_date','event_crea
 
 #Features
 features = Features()
-X, y = features.features_clean(df)
+X = features.features_clean(df)
+
+#Target variable = 1 if the event is fraudulent
+df['fraud'] = df['acct_type'].str.contains('fraud')
+y = pd.get_dummies(df['fraud'],drop_first=True)
 
 #Train, test split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=42)   
