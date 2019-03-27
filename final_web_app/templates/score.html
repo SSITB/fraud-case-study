@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div class="body">
+        <div class="outer_status_box low">
+            <h1 class="green">Low</h1>
+            <p class="green">{{ low }}</p>
+        </div>
+
+        <div class="outer_status_box medium">
+            <h1 class="yellow">Medium</h1>
+            <p class="yellow">{{ medium }}</p>
+        </div>
+
+        <div class="outer_status_box high">
+            <h1 class="red">High</h1>
+            <p class="red">{{ high }}</p>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+

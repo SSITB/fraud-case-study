@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html >
+<head>
+    <title>Flask app</title>
+    <link rel="stylesheet" type="text/css" href="static/main.css?version=.69">
+    <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Monoton" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Carter+One" rel="stylesheet">
+</head>
+<body>
+    <div class="flex_sb header">
+        <div class= "center height100">
+            <img class="logo" src="../static/img/lazy.png">
+        </div>
+        <div class="center height100">
+            <h1 class="lazy_people center text-center">The Lazy People</h1>
+        </div>
+        <div class="center height100">
+        </div>
+    </div>
+
+    <div class="main">
+
+        <div class="nav">
+            <ul class="nav_list height100">
+                <li><a href="/score" method='POST'>Score</a></li>
+                <li>Dashboard</li>
+                <li>Our Project</li>
+                <li>Meet The Team</li>
+            </ul>
+        </div>
+
+        {% block body %} {% endblock %}
+    </div>
+
+</body>
+</html>

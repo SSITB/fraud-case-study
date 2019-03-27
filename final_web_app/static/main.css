@@ -1,0 +1,192 @@
+.main {
+    height: 90vh;
+    width: 100vw;
+}
+
+.body {
+    height: 100%;
+    width: 85vw;
+    margin-left: 15vw;
+}
+
+.logo {
+    max-width: 100%;
+    max-height: 80%;
+    text-align: right;
+}
+
+.height100 {
+    height: 100%;
+}
+
+.width100 {
+    width: 100%;
+}
+
+.flex_c {
+    display: flex;
+    justify-content: center;
+}
+
+html {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    margin-top: -8px;
+    margin-left: -8px;
+}
+
+.flex_sb{
+    display: flex;
+    justify-content: space-between;
+}
+
+.center{
+    align-self: center;
+}
+
+.fs {
+    align-self: flex-start
+}
+
+
+
+/* Header Styling */
+
+.header {
+    background-color: #1F1B1D;
+    height: 10vh;
+    padding-left: 5%;
+    position: fixed;
+    width: 100vw;
+    z-index: 100;
+}
+
+.lazy_people {
+    color: #0EEC29;
+    font-family: 'Monoton', cursive;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+
+.header_img{
+    height: 50%;
+    width: auto;
+}
+
+/* Nav Styling */
+
+.nav{
+    width: 15vw;
+    height: 100%;
+    position: fixed;
+    background-color: #DFDFDF;
+    border-right: 5px solid #1F1B1D;
+    box-shadow: 1px 6px 10px 2px #EE8640;
+}
+
+.nav_list{
+    list-style-type: none;
+    margin-top: 10vw;
+    padding-left: 0;
+}
+
+.nav_list > li {
+    font-size: 25px;
+    font-family: 'Lobster', cursive;
+    color: #1F1B1D;
+    width: 100%;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.nav_list > li:hover {
+    font-size: 25px;
+    font-family: 'Lobster', cursive;
+    color: #0EEC29;
+    text-decoration: underline;
+}
+
+/* main page scoring */
+
+.score_container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.score_button {
+    height: 50%;
+    width: 50%;
+    align-self: center;
+    border: 5px #67625E;
+    background-color: #ffffff;
+    font-family: 'Monoton', cursive;
+    font-size: 100px;
+    color: #EE8640;
+}
+
+.score_button:hover{
+    background-color: #67625E;
+    transition: .5s;
+    box-shadow: 1px 0px 1px 2px #EE8640;
+}
+
+
+/* Score Page Styling */
+
+
+
+.outer_status_box{
+    width: 27%;
+    margin-left: 3%;
+    display: inline-block;
+    height: 50%;
+    margin-top: 10%;
+    margin-bottom: 25%;
+    border-radius: 15%;
+}
+
+
+.outer_status_box:last-child {
+    margin-right: 0;
+}
+
+.outer_status_box > h1 {
+    font-family: 'Lobster', cursive;
+    font-size: 60px;
+    text-align: center;
+}
+
+.outer_status_box > p {
+    font-family: 'Carter One', cursive;
+    font-size: 80px;
+    text-align: center;
+}
+
+.low {
+    border:5px solid #038403;
+}
+
+.medium {
+    border:5px solid #E8E800;
+}
+
+.high {
+    border:5px solid #E80C00;
+}
+
+.green {
+    color: #038403;
+}
+
+.yellow {
+    color: #E8E800;
+}
+
+.red {
+    color: #E80C00;
+}
