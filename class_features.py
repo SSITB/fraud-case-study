@@ -1,8 +1,6 @@
 import pandas as pd
 import numpy as np
 from itertools import *
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.cluster import KMeans
 
 
 class Features:
