@@ -67,7 +67,6 @@ class EventAPIClient:
 def main():
     """Collect events every 30 seconds."""
 
-    # mongo_client=
 
     client = EventAPIClient(db=MongoClient()['Fraud_Detection'])
     client.collect()
