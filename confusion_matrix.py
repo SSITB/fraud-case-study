@@ -24,3 +24,4 @@ def confusion_matrix_plot(cm, cmap):
             horizontalalignment="center",
             color="white" if cm[i, j] > thresh else "black")
     plt.show()
+
