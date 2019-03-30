@@ -19,24 +19,35 @@ class Logit():
         self.X = X
         self.y = y
     
+    def scaling(self, X):
+        X_copy = X.copy()
+        cont_vars=['body_length', 'name_length', 'sale_duration', 'user_age',
+        'org_facebook','org_twitter', 'avg_ticket_cost','tot_ticket_quant']
+        X_copy[cont_vars]=StandardScaler().fit_transform(X_copy[cont_vars])
+        return X_copy
+    
     def fit(self):
         self.model = LogisticRegression(C=1000)
-        self.model.fit(self.X, self.y)
+        self.X = self.scaling(self.X)
+        self.model = self.model.fit(self.X, self.y)
         return self
-    
+        
     def predict(self, X):
+        X = self.scaling(X)
         y_predicted = self.model.predict(X)
         return y_predicted
     
     def predict_proba(self, X):
+        X = self.scaling(X)
         y_proba = self.model.predict_proba(X)
         return y_proba
     
     def score(self, X, y):
+        X = self.scaling(X)
         score = self.model.score(X, y)
         return score
     
-    def confusion_matrix_plot(self, y, y_predicted,cmap):
+    def confusion_matrix_plot(self, y, y_predicted, cmap):
         cm = confusion_matrix(y, y_predicted)
         plt.clf()
         plt.imshow(cm, cmap, interpolation='nearest')
@@ -239,10 +250,11 @@ class SupportVectorMachine():
         self.y = y
     
     def scaling(self, X):
+        X_copy = X.copy()
         cont_vars=['body_length', 'name_length', 'sale_duration', 'user_age',
         'org_facebook','org_twitter', 'avg_ticket_cost','tot_ticket_quant']
-        X[cont_vars]=StandardScaler().fit_transform(X[cont_vars])
-        return X
+        X_copy[cont_vars]=StandardScaler().fit_transform(X_copy[cont_vars])
+        return X_copy
  
     def fit(self):
         self.model = SVC(gamma='scale',probability=True)
