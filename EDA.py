@@ -64,6 +64,7 @@ def model_score(model):
     cm = confusion_matrix(y_test, y_test_predicted)
     return model, y_test_predicted, score, cm
 
+
 #Logit confusion matrix and model summary
 logit, y_test_predicted_logit, score_logit, cm_logit = model_score(Logit)
 logit.confusion_matrix_plot(y_test, y_test_predicted_logit, cmap = plt.cm.Greens)
